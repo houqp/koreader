@@ -91,6 +91,7 @@ function DocSettings:open(docfile)
                 break
             end
         end
+        new.candidates = candidates
     end
     if ok and stored then
         new.data = stored
@@ -131,6 +132,19 @@ function DocSettings:flush()
             f_out:write(s_out)
             f_out:write("\n")
             f_out:close()
+
+            if self.candidates ~= nil
+            and not G_reader_settings:readSetting(
+                        "preserve_legacy_docsetting") then
+                for _, k in pairs(self.candidates) do
+                    if k[1] ~= f then
+                        os.remove(k[1])
+                        -- We should not remove sidecar folder, as it may
+                        -- contain Kindle history files.
+                    end
+                end
+            end
+
             break
         end
     end
