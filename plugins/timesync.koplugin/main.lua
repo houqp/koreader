@@ -20,7 +20,7 @@ local function currentTime()
     if std_out then
         local result = std_out:read("*all")
         std_out:close()
-        return T(_("New Time is %1"), result)
+        return T(_("New time is %1"), result)
     else
         return _("Time synchronized")
     end
