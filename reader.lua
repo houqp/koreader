@@ -24,6 +24,8 @@ require("setupkoenv")
 -- they might call gettext on load
 G_reader_settings = require("luasettings"):open(
     DataStorage:getDataDir().."/settings.reader.lua")
+require("migrator"):updateToVersoin(1)
+
 local lang_locale = G_reader_settings:readSetting("language")
 local _ = require("gettext")
 if lang_locale then
